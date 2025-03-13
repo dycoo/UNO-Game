@@ -94,6 +94,18 @@ class game:
         self.deck = deck
         self.table_card = ""
 
+    def print_game_instructions(self):
+        print('Welcome to UNO game')
+        print('The game is played by 2 to 10 players')
+        print('Each player will be given 7 cards')
+        print('The first player to get rid of all his cards wins')
+        print('The game will start by playing a card that matches the table card')
+        print('If the player does not have a matching card, he can draw a card from the deck')
+        print('If the drawn card is a match, he can play it, otherwise, he will pass his turn')
+        print('If the player has only one card, he should say UNO')
+        print('The player that thorws all his cards first wins')
+        print('Good luck')
+
 
     def show_table_card(self):
         print(f'Table card is {self.table_card}')   
@@ -120,7 +132,7 @@ class game:
     
     
     #display the players
-    def display_players():   
+    def display_players(self):   
         
         print("These are the players: ")
         for player in self.players:
@@ -142,6 +154,22 @@ class game:
                     print(f'{player.get_name()} turn')
                     print(player.get_cards())
                     card = input('Enter the card you want to play: ')
+
+                    if card == "--help":
+                        self.print_game_instructions()
+                        
+                        #resume the game if the users type --resume if the user types something differnt keep asking
+                        while True:
+                            resume = input('Type --resume to resume the game: ')
+                            if resume == '--resume':
+                                break
+                            else:
+                                continue
+                            
+                        card = input('Enter the card you want to play: ')
+                            
+
+                        
                     if card in player.get_cards():
                         if card.split()[0] in self.table_card.split()[0] or card.split()[1] in self.table_card.split()[1]:
                             print(f'{player.get_name()} played {card}')
