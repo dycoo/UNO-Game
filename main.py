@@ -120,7 +120,7 @@ class game:
     
     
     #display the players
-    def display_players(self):   
+    def display_players():   
         
         print("These are the players: ")
         for player in self.players:
@@ -138,18 +138,23 @@ class game:
         winner = False
         while not winner:
             for player in self.players:
-                print(f'{player.get_name()} turn')
-                print(player.get_cards())
-                card = input('Enter the card you want to play: ')
-                if card in player.get_cards():
-                    if card.split()[0] in self.table_card.split()[0] or card.split()[1] in self.table_card.split()[1]:
-                        print(f'{player.get_name()} played {card}')
-                        player.cards.remove(card)
-                        self.table_card = card
-                        print(f'New table card is {self.table_card}')
+                try:
+                    print(f'{player.get_name()} turn')
+                    print(player.get_cards())
+                    card = input('Enter the card you want to play: ')
+                    if card in player.get_cards():
+                        if card.split()[0] in self.table_card.split()[0] or card.split()[1] in self.table_card.split()[1]:
+                            print(f'{player.get_name()} played {card}')
+                            player.cards.remove(card)
+                            self.table_card = card
+                            print(f'New table card is {self.table_card}')
+                        else:
+                            print('You can not play that card, try again')
+                            continue
                     else:
-                        print('You can not play that card, try again')
-                        continue
+                        print('Card not in your hand, try again')
+                except Exception as e:
+                    print(f'An error occurred: {e}')
                     
                     
                     if len(player.get_cards())==1:
@@ -160,9 +165,6 @@ class game:
                         winner = True
                         print(f'{player.get_name()} is the winner')
                         break
-                else:
-                    print('You dont have that card, try again')
-                    continue
         
 
     def __str__(self):
